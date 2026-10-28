@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Андрей Лопатнюк — Академия Духовной Психологии</title>
+<meta name="description" content="Основатель Академии Духовной Психологии. Тарифы, индивидуальное сопровождение, консультации и бесплатная диагностика.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e2147;
+  --glass:linear-gradient(160deg,rgba(74,112,190,.55),rgba(26,52,116,.66));
+  --glass2:linear-gradient(160deg,rgba(82,122,200,.6),rgba(28,56,124,.74));
+  --gold:#C2A464;--goldsoft:#E0D0A2;--goldlight:#F2E8CB;
+  --text:#FBF9F4;--muted:#d6dff0;--line:rgba(236,224,186,.55);--line2:rgba(251,249,244,.2);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{overflow-x:hidden}
+body{font-family:"Manrope",system-ui,sans-serif;color:var(--text);background:var(--navy);overflow-x:hidden;min-height:100vh}
+a{color:inherit}
+img{display:block;max-width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- atmosphere: a different backdrop per page ---------- */
+.bgl{position:fixed;inset:0;z-index:-3;background-size:cover;background-position:50% 100%;background-repeat:no-repeat;opacity:0;transition:opacity .8s ease}
+.bgl.on{opacity:1}
+.bgl[data-b="dawn"]{filter:brightness(.6) saturate(1.2) contrast(1.05)}
+.bgl[data-b="lake"]{filter:brightness(.78)}
+.bgl[data-b="mist"]{filter:brightness(.98) saturate(1.1)}
+body[data-bg="mist"] .veil{background:linear-gradient(180deg,rgba(10,26,62,.3) 0%,rgba(10,26,62,.05) 38%,rgba(10,26,62,.08) 70%,rgba(10,26,62,.34) 100%)}
+body[data-bg="mist"]{--glass2:linear-gradient(160deg,rgba(96,138,214,.66),rgba(40,72,146,.78))}
+.veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+  radial-gradient(130% 75% at 50% 38%,rgba(10,26,62,.42),rgba(10,26,62,0) 72%),
+  linear-gradient(180deg,rgba(10,26,62,.5) 0%,rgba(10,26,62,.16) 38%,rgba(10,26,62,.2) 70%,rgba(10,26,62,.52) 100%)}
+.flash{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(60% 40% at 30% 18%,rgba(205,225,255,.55),transparent 70%)}
+body[data-bg="storm"] .flash{animation:flash 9s infinite}
+@keyframes flash{0%,91%{opacity:0}92%{opacity:.6}93%{opacity:.08}94%{opacity:.5}97%,100%{opacity:0}}
+.geo-wrap{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+.geo{position:absolute;top:42%;left:50%;width:1100px;height:1100px;margin:-550px 0 0 -550px;opacity:.09;animation:geo 240s linear infinite}
+.geo svg{width:100%;height:100%}
+@keyframes geo{to{transform:rotate(360deg)}}
+.grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.03;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+/* ---------- layout ---------- */
+.app{max-width:480px;margin:0 auto;padding:0 14px 110px;min-height:100vh}
+.view{display:none}
+.view.active{display:block;animation:viewIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.view.active .rv{animation:rise .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * .06s)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+
+/* hero photo (poster style): bright, uncropped, light fade only at the very bottom */
+.herop{position:relative;margin:0 -14px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 90%,transparent 100%)}
+.herop img{width:100%;height:100%;object-fit:cover;object-position:50% 0%;filter:brightness(1.08) saturate(1.06) contrast(1.03);animation:kb 18s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.03)}}
+.herop.tall{height:336px}
+.herop.mid{height:336px}
+.herop:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 40% at 70% 20%,rgba(255,236,180,.14),transparent 70%);animation:glow 6s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.4}to{opacity:1}}
+
+/* top bar for inner pages */
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;margin:0 -14px;padding:9px 14px;background:linear-gradient(180deg,rgba(14,33,71,.9),rgba(14,33,71,.55));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+.back{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;text-decoration:none;
+  background:linear-gradient(180deg,#3d62a8,#22407c);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 3px 0 #0f2150,0 8px 14px rgba(0,0,0,.3);transition:transform .12s,box-shadow .12s}
+.back:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 #0f2150}
+.back svg{width:20px;height:20px;stroke:var(--goldlight);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.top b{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:15.5px;line-height:1.15}
+.top span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- 3D buttons ---------- */
+.btn3d{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 18px;border:0;border-radius:17px;
+  font:800 15px "Manrope",sans-serif;color:#1b1709;text-decoration:none;cursor:pointer;overflow:hidden;text-align:center;
+  background:linear-gradient(180deg,#F8F0DA 0%,#E0D0A2 40%,#BFA264 100%);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.75),inset 0 -4px 8px rgba(90,70,30,.3),0 6px 0 #7a6838,0 16px 26px rgba(10,24,60,.4);
+  transition:transform .12s ease,box-shadow .12s ease}
+.btn3d:hover{transform:translateY(-2px);box-shadow:inset 0 2px 0 rgba(255,255,255,.75),inset 0 -4px 8px rgba(90,70,30,.3),0 8px 0 #7a6838,0 20px 30px rgba(10,24,60,.46)}
+.btn3d:active{transform:translateY(5px);box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -2px 6px rgba(90,70,30,.3),0 1px 0 #7a6838,0 6px 12px rgba(10,24,60,.4)}
+.btn3d:after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-18deg);animation:shine 4.6s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-70%}100%{left:130%}}
+.btn3d small{display:block;font-weight:600;font-size:12px;opacity:.78;margin-top:1px}
+.btn3d.dark{color:var(--text);background:linear-gradient(180deg,#4a73ba 0%,#2a4b8e 100%);border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -3px 6px rgba(0,0,0,.25),0 5px 0 #112556,0 14px 22px rgba(0,0,0,.3)}
+.btn3d.dark:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -3px 6px rgba(0,0,0,.25),0 7px 0 #112556,0 18px 28px rgba(0,0,0,.38)}
+.btn3d.dark:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 1px 0 #112556,0 5px 10px rgba(0,0,0,.35)}
+.btn3d.dark:after{display:none}
+.btn3d.sm{padding:12px 12px;font-size:13.5px;border-radius:14px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ---------- medallions ---------- */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+.coin3d{position:relative;flex:none;perspective:420px;display:block}
+.coin3d .m{position:absolute;inset:0;border-radius:50%;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.coin3d:after{content:"";position:absolute;left:14%;right:14%;bottom:-8px;height:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.4),transparent);filter:blur(2px)}
+.coin3d .ring{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from var(--ang),#f6eed6,#9a9272 18%,#dce3f0 36%,#a89d7a 54%,#f8f1dc 72%,#8996b3 88%,#f6eed6);
+  animation:ang 11s linear infinite;animation-delay:var(--cd,0s);box-shadow:0 8px 16px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.25)}
+@keyframes ang{to{--ang:360deg}}
+.coin3d .disc{position:absolute;inset:2.5px;border-radius:50%;overflow:hidden;transform:translateZ(5px);
+  background:radial-gradient(circle at 30% 22%,#4468b0 0%,#274a92 52%,#17316c 100%);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.3),inset 0 -8px 12px rgba(0,0,0,.35)}
+.coin3d .sheen{position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.4) 50%,transparent 58%);transform:translateX(-80%);animation:sheen 7s ease-in-out infinite;animation-delay:var(--cd,0s)}
+@keyframes sheen{0%,62%{transform:translateX(-80%)}100%{transform:translateX(80%)}}
+.coin3d .petals{position:absolute;inset:7%;width:86%;height:86%;transform:translateZ(9px) translate(calc(var(--tx,0) * .6px),calc(var(--ty,0) * .6px));transition:transform .3s;opacity:.55}
+.coin3d .petals *{fill:none;stroke:#e6d9b0;stroke-width:.9}
+.coin3d .glyph{position:absolute;inset:0;display:grid;place-items:center;transform:translateZ(18px) translate(calc(var(--tx,0) * 1.2px),calc(var(--ty,0) * 1.2px));transition:transform .3s}
+.coin3d .glyph svg{width:46%;height:46%;fill:none;stroke:#fbf3da;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+.coin3d .glyph svg *{stroke-dasharray:1;stroke-dashoffset:0}
+.view.active .coin3d .glyph svg *{animation:draw 1.2s ease .2s both}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.coin3d .glare{position:absolute;inset:2.5px;border-radius:50%;pointer-events:none;transform:translateZ(22px);opacity:0;transition:opacity .3s;mix-blend-mode:screen;background:radial-gradient(circle at var(--gx,30%) var(--gy,22%),rgba(255,255,255,.6),rgba(255,255,255,0) 52%)}
+.coin3d.hot .glare{opacity:1}
+.coin3d.hot .ring{animation-duration:4s}
+
+/* ---------- price plates (brush, both prices equally visible) ---------- */
+.prices{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:10px 0 4px}
+.plate{position:relative;display:inline-block;padding:6px 20px 7px;font-family:"Fraunces",Georgia,serif;font-weight:700;line-height:1.05;color:#1b1709;white-space:nowrap;
+  background:linear-gradient(180deg,#FBF3DC 0%,#E8D9AC 42%,#C2A464 100%);
+  clip-path:polygon(1.5% 14%,6% 4%,45% 8%,94% 0,99% 22%,100% 78%,96% 96%,52% 92%,5% 100%,0 70%,2% 40%);
+  filter:drop-shadow(0 4px 8px rgba(8,20,50,.45))}
+.plate.new{font-size:32px}
+.plate.old{font-size:32px;color:#2b2f3c;background:linear-gradient(180deg,#E9ECF3 0%,#C9CFDC 50%,#9AA3B6 100%)}
+.plate.old:after{content:"";position:absolute;left:4%;right:4%;top:50%;height:4px;background:#e0202a;transform:rotate(-5deg);border-radius:2px;box-shadow:0 0 0 1.5px rgba(255,255,255,.55),0 2px 6px rgba(0,0,0,.4)}
+
+/* prominent "reduced price" strip */
+.save24{display:flex;align-items:center;gap:10px;margin:10px 0 12px;padding:9px 12px;border-radius:14px;color:#1b1709;font-size:12.5px;line-height:1.3;font-weight:700;
+  background:linear-gradient(135deg,#FFF4CF,#E6D49A);box-shadow:0 6px 16px rgba(8,22,60,.3),inset 0 1px 0 rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.7)}
+.save24 svg{flex:none;width:22px;height:22px;stroke:#7a5a12;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.promo{position:relative;display:grid;margin:12px 0 0;padding:10px 12px;border-radius:20px;grid-template-columns:auto 1fr;gap:12px;align-items:center;color:#1b1709;text-decoration:none;
+  background:linear-gradient(135deg,#FFF6D6 0%,#EBDBA6 100%);box-shadow:0 12px 28px rgba(8,22,60,.42),inset 0 1px 0 rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.75);overflow:hidden}
+.promo:before{content:"";position:absolute;inset:-40% auto -40% -30%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-18deg);animation:shine 5s ease-in-out infinite}
+.promo .clock{position:relative;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#2f5099,#16316c);box-shadow:0 4px 0 #0b1f4d,0 8px 14px rgba(8,22,60,.4)}
+.promo .clock:after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(40,70,140,.55);animation:pulse 2s ease-out infinite}
+@keyframes pulse{from{transform:scale(.85);opacity:1}to{transform:scale(1.35);opacity:0}}
+.promo .clock svg{width:24px;height:24px;stroke:#F2E8CB;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.promo b{display:block;font-weight:800;font-size:15px;line-height:1.2}
+.promo span{display:block;margin-top:3px;font-size:12.5px;line-height:1.35;color:#3a2f12}
+.promo .go2{grid-column:1/-1;margin-top:2px}
+
+/* ---------- HOME ---------- */
+.cards{position:relative;margin-top:-34px}
+.glabel{margin:14px 4px 8px;display:flex;align-items:center;gap:10px;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--goldlight);text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.glabel:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.entry{position:relative;display:grid;grid-template-columns:50px minmax(0,1fr) 20px;column-gap:14px;align-items:center;margin-bottom:9px;padding:11px 14px;border-radius:20px;text-decoration:none;
+  background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 10px 24px rgba(8,22,60,.3),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .15s ease-out,border-color .25s,box-shadow .25s}
+.entry:hover{border-color:rgba(248,240,218,.95);box-shadow:0 14px 30px rgba(8,22,60,.4),0 0 30px rgba(236,224,186,.16),inset 0 1px 0 rgba(255,255,255,.28)}
+.entry:active{transform:scale(.985)}
+.entry .coin3d{width:50px;height:50px}
+.entry h3{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:17px;line-height:1.2}
+.entry p{margin-top:3px;font-size:12.5px;line-height:1.35;color:var(--muted)}
+.entry p b{color:var(--goldlight);font-weight:800}
+.entry .go{width:20px;height:20px;stroke:var(--goldlight);fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.entry:hover .go{transform:translateX(4px)}
+.entry.free{border-color:rgba(248,240,218,.95);background:linear-gradient(160deg,rgba(110,150,225,.62),rgba(36,70,146,.72))}
+.soc{display:flex;justify-content:center;gap:18px;margin-top:22px}
+.soc a{display:block;width:50px;height:50px;text-decoration:none}
+.contacts{margin-top:16px;text-align:center;font-size:13px;line-height:1.7;color:var(--muted);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.contacts a{color:var(--goldlight);font-weight:700;text-decoration:none}
+.foot{margin-top:10px;text-align:center;font-size:11.5px;color:rgba(214,223,240,.8);text-shadow:0 2px 8px rgba(0,0,0,.5)}
+
+/* ---------- inner pages ---------- */
+.ph{position:relative;margin-top:-26px;padding:13px 15px 14px;border-radius:20px;background:var(--glass2);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 12px 28px rgba(8,22,60,.34),inset 0 1px 0 rgba(255,255,255,.25)}
+.ph .eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--goldlight)}
+.ph h2{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:25px;line-height:1.1;margin:6px 0 0}
+.ph h2 em{font-style:normal;color:var(--goldlight)}
+.ph p{margin-top:6px;font-size:13.5px;line-height:1.5;color:#eef2fb}
+.callout{margin:12px 0 6px;padding:14px 14px 15px;border-radius:16px;text-align:center;background:linear-gradient(180deg,rgba(236,224,186,.22),rgba(236,224,186,.08));border:1px solid var(--goldlight);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 18px rgba(0,0,0,.25)}
+.callout b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:20px;line-height:1.28;color:#fff}
+.callout b em{font-style:normal;color:var(--goldlight)}
+.gift{margin:16px 0 14px;padding:14px 14px 15px;border-radius:18px;text-align:center;background:radial-gradient(120% 90% at 50% 0%,rgba(236,200,120,.28),rgba(236,224,186,.07) 70%);border:1.5px solid var(--goldlight);box-shadow:0 0 22px rgba(228,200,120,.25),inset 0 1px 0 rgba(255,255,255,.25)}
+.tgnote{margin:0 0 12px;font-size:14px;line-height:1.5;color:#eef2fb;text-align:center}
+.gift-top{display:flex;align-items:center;justify-content:center;gap:8px}
+.gift-ico{font-size:26px;line-height:1}
+.gift-tag{font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--goldlight)}
+.gift b{display:block;margin-top:6px;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:19px;line-height:1.25;color:#fff}
+.gift-price{display:flex;align-items:center;justify-content:center;gap:12px;margin:10px 0 6px}
+.gift-price .plate.old{font-size:24px;padding:4px 14px 5px}
+.gift-free{font-family:"Fraunces",Georgia,serif;font-size:20px;font-weight:600;color:var(--goldlight)}
+.gift p{margin-top:6px;font-size:13.5px;line-height:1.5;color:#eef2fb}
+.plateSw[hidden]{display:none!important}
+.faq p a{color:var(--gold,#b8860b);font-weight:700}
+.roles{list-style:none;margin:8px 0 2px;padding:0}
+.roles li{position:relative;padding:3px 0 3px 22px;font-size:14px;line-height:1.35;font-weight:600;color:#fff}
+.roles li:before{content:"";position:absolute;left:0;top:50%;width:14px;height:2px;border-radius:2px;background:var(--goldlight);transform:translateY(-50%)}
+.card{position:relative;margin-top:12px;padding:15px 14px;border-radius:22px;background:var(--glass2);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 12px 28px rgba(8,22,60,.32),inset 0 1px 0 rgba(255,255,255,.25)}
+.card.hl{border-color:rgba(248,240,218,.95);box-shadow:0 14px 34px rgba(8,22,60,.4),0 0 36px rgba(236,224,186,.18),inset 0 1px 0 rgba(255,255,255,.3)}
+.card .tag{display:inline-block;margin-bottom:5px;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:800;letter-spacing:.06em;color:#1b1709;background:linear-gradient(180deg,#F8F0DA,#BFA264);box-shadow:0 2px 0 #7a6838}
+.card h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:21px;line-height:1.12}
+.dur{margin-top:2px;font-size:12px;color:var(--muted);line-height:1.3}
+/* compact tariff card */
+.card.t{padding:11px 12px 12px;margin-top:10px}
+.card.t h3{font-size:20px}
+.th{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.th .prices{flex-direction:column;align-items:flex-end;gap:4px;margin:0}
+.th .plate.new{font-size:23px;padding:4px 14px 5px}
+.th .plate.old{font-size:23px;padding:4px 14px 5px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 10px}
+.chips span{padding:4px 9px;border-radius:20px;font-size:11.5px;line-height:1.2;font-weight:600;background:rgba(14,33,71,.34);border:1px solid var(--line2)}
+.list{list-style:none;margin:10px 0 14px}
+.list li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:13.5px;line-height:1.42}
+.list svg{flex:none;width:17px;height:17px;margin-top:1px;stroke:var(--goldlight);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.sub{margin:14px 0 4px;font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--goldlight)}
+.note{margin:12px 0;padding:10px 12px;border-radius:14px;font-size:12.5px;line-height:1.5;color:#f1f5fc;background:rgba(236,224,186,.14);border:1px dashed var(--line)}
+.steps{counter-reset:s;list-style:none;margin:10px 0 4px}
+.steps li{counter-increment:s;position:relative;padding:7px 0 7px 44px;font-size:13.5px;line-height:1.45}
+.steps li:before{content:counter(s);position:absolute;left:0;top:5px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13.5px;color:#1b1709;background:linear-gradient(180deg,#F8F0DA,#BFA264);box-shadow:0 3px 0 #7a6838}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0 4px}
+.feat div{padding:10px 10px;border-radius:15px;background:rgba(14,33,71,.3);border:1px solid var(--line2)}
+.feat b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:14.5px;line-height:1.2;color:var(--goldlight)}
+.feat span{display:block;margin-top:3px;font-size:12px;line-height:1.38;color:var(--muted)}
+.faq details{border-top:1px solid var(--line2);padding:11px 0}
+.faq details:first-child{border-top:0}
+.faq summary{cursor:pointer;list-style:none;font-weight:700;font-size:14px;display:flex;justify-content:space-between;gap:10px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";color:var(--goldlight);font-size:20px;line-height:1;transition:transform .25s}
+.faq details[open] summary:after{transform:rotate(45deg)}
+.faq p{margin-top:7px;font-size:13px;line-height:1.55;color:var(--muted)}
+.contacts.in{text-shadow:none}
+.spacer{height:12px}
+
+/* ---------- dock ---------- */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 14px calc(10px + env(safe-area-inset-bottom));transform:translateY(130%);transition:transform .5s cubic-bezier(.2,.9,.3,1);
+  background:linear-gradient(180deg,rgba(14,33,71,0),rgba(14,33,71,.82) 45%)}
+.dock.show{transform:none}
+.dock .btn3d{max-width:452px;margin:0 auto;padding:13px 18px;font-size:14px}
+
+/* ---------- plate comparison: light (default) vs dark ---------- */
+body[data-plate="dark"]{
+  --glass:linear-gradient(160deg,rgba(18,34,76,.82),rgba(8,18,46,.9));
+  --glass2:linear-gradient(160deg,rgba(20,38,84,.86),rgba(8,18,46,.93));
+}
+body[data-plate="dark"] .entry.free{background:linear-gradient(160deg,rgba(44,74,140,.84),rgba(12,26,62,.92))}
+body[data-plate="dark"] .feat div{background:rgba(255,255,255,.06)}
+body[data-plate="dark"] .chips span{background:rgba(255,255,255,.07)}
+body[data-plate="dark"] .note{background:rgba(236,224,186,.1)}
+.plateSw{position:fixed;bottom:76px;left:10px;z-index:90;display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;border:1px solid var(--line);cursor:pointer;
+  font:700 11px "Manrope",sans-serif;color:var(--text);background:rgba(8,18,44,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.plateSw i{display:block;width:14px;height:14px;border-radius:50%;border:1.5px solid var(--goldlight);background:linear-gradient(90deg,var(--goldlight) 50%,transparent 50%)}
+body[data-plate="dark"] .plateSw i{transform:rotate(180deg)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition-duration:.01s!important}
+}
+</style></head><body data-bg="sky">
+<div class="bgl on" data-b="sky" style="background-image:url('img/bg-sky.jpg')"></div>
+<div class="bgl" data-b="geo" style="background-image:url('img/bg-geo.jpg')"></div>
+<div class="bgl" data-b="storm" style="background-image:url('img/bg-storm.jpg')"></div>
+<div class="bgl" data-b="lake" style="background-image:url('img/bg-lake.jpg')"></div>
+<div class="bgl" data-b="dawn" style="background-image:url('img/bg-dawn.jpg')"></div>
+<div class="bgl" data-b="mount" style="background-image:url('img/bg-mount.jpg')"></div>
+<div class="bgl" data-b="mist" style="background-image:url('img/bg-dawn.jpg')"></div>
+<div class="veil"></div><div class="flash"></div><div class="grain"></div>
+<div class="geo-wrap"><div class="geo"><svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2E8CB" fill="none" stroke-width="1">
+  <circle cx="400" cy="400" r="360" opacity=".5"/><circle cx="400" cy="400" r="300" opacity=".4" stroke-dasharray="2 10"/><circle cx="400" cy="400" r="230" opacity=".5"/>
+  <g opacity=".65"><circle cx="400" cy="400" r="70"/><circle cx="400" cy="333" r="70"/><circle cx="400" cy="467" r="70"/><circle cx="339" cy="366" r="70"/><circle cx="339" cy="434" r="70"/><circle cx="461" cy="366" r="70"/><circle cx="461" cy="434" r="70"/></g>
+  <g opacity=".35"><line x1="400" y1="20" x2="400" y2="90"/><line x1="400" y1="710" x2="400" y2="780"/><line x1="20" y1="400" x2="90" y2="400"/><line x1="710" y1="400" x2="780" y2="400"/><line x1="115" y1="115" x2="165" y2="165"/><line x1="635" y1="635" x2="685" y2="685"/><line x1="115" y1="685" x2="165" y2="635"/><line x1="635" y1="165" x2="685" y2="115"/></g>
+</g></svg></div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chk" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="go" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="clk" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+</svg>
+
+<div class="app">
+
+<!-- ================= HOME ================= -->
+<section class="view" data-view="home">
+  <h1 class="sr">Андрей Лопатнюк, основатель Академии Духовной Психологии</h1>
+  <figure class="herop tall"><img src="img/hero-home.jpg" alt="Андрей Лопатнюк"></figure>
+  <div class="cards">
+    <div class="glabel rv" style="--i:1">Групповое образование</div>
+    <a class="entry rv" style="--i:2" href="#/academy">
+      <span class="coin3d"><svg viewBox="0 0 24 24"><path d="M2.5 9.5L12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6.5 11.5v4.2c0 1.2 2.5 2.8 5.5 2.8s5.5-1.6 5.5-2.8v-4.2"/><path d="M21.5 9.5v5"/></svg></span>
+      <span><h3>Академия Духовной Психологии</h3><p>3 тарифа · от <b>25 000 ₽</b></p></span>
+      <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
+    </a>
+
+    <div class="glabel rv" style="--i:3">Индивидуальная работа</div>
+    <a class="entry rv" style="--i:4" href="#/personal">
+      <span class="coin3d" style="--cd:-3s"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.6 3.4-5.6 7-5.6s6.4 2 7 5.6"/></svg></span>
+      <span><h3>Индивидуальное сопровождение</h3><p>1,5 месяца 24/7 · лично с Андреем</p></span>
+      <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
+    </a>
+    <a class="entry rv" style="--i:5" href="#/consult">
+      <span class="coin3d" style="--cd:-6s"><svg viewBox="0 0 24 24"><path d="M4 5.5h16v10H12l-4.5 4v-4H4z"/><path d="M8 9.5h8M8 12.3h5"/></svg></span>
+      <span><h3>Индивидуальная консультация</h3><p>1,5–2 часа · разовая встреча</p></span>
+      <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
+    </a>
+    <a class="entry free rv" style="--i:6" href="#/diagnostic">
+      <span class="coin3d" style="--cd:-9s"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/><path d="M8.5 11h5M11 8.5v5"/></svg></span>
+      <span><h3>Бесплатная диагностика</h3><p>Первый шаг · <b>бесплатно</b></p></span>
+      <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
+    </a>
+
+    <div class="glabel rv" style="--i:7">Подробнее</div>
+    <a class="entry rv" style="--i:9" href="#/about">
+      <span class="coin3d" style="--cd:-5s"><svg viewBox="0 0 24 24"><path d="M12 3.5l1.7 4.8 4.8 1.7-4.8 1.7L12 16.5l-1.7-4.8L5.5 10l4.8-1.7z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg></span>
+      <span><h3>Обо мне и вопросы</h3><p>Кто я и как всё устроено</p></span>
+      <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
+    </a>
+    <!-- Telegram-канал (просьба папы 22.10) -->
+    <a class="entry rv" style="--i:10" href="https://t.me/psychology_schastya">
+      <span class="coin3d" style="--cd:-7s"><svg viewBox="0 0 24 24"><path d="M20.5 4L3.5 10.8l5 1.8 1.8 5.5 2.7-3.2 4.6 3.4z"/><path d="M8.5 12.6L20.5 4"/></svg></span>
+      <span><h3>Мой Telegram-канал</h3><p>Об отношениях и о том, как пережить измену: разборы, практики, ответы на вопросы</p></span>
+      <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
+    </a>
+
+    <div class="soc rv" style="--i:10">
+      <a class="coin3d" style="--cd:0s" href="https://www.instagram.com/lopatnyuk_psy" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r=".6"/></svg></a>
+      <a class="coin3d" style="--cd:-3s" href="https://youtube.com/@lopatnyuk_psy" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2.8" y="5.5" width="18.4" height="13" rx="4"/><path d="M10.2 9.5v5l4.3-2.5z"/></svg></a>
+      <a class="coin3d" style="--cd:-6s" href="https://www.tiktok.com/@lopatnyk_psy" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 4v10.2a3.7 3.7 0 11-3.7-3.7M14 4c.4 2.4 1.9 3.8 4.4 4"/></svg></a>
+      <a class="coin3d" style="--cd:-9s" href="https://t.me/psychology_schastya" aria-label="Telegram-канал"><svg viewBox="0 0 24 24"><path d="M20.5 4L3.5 10.8l5 1.8 1.8 5.5 2.7-3.2 4.6 3.4z"/><path d="M8.5 12.6L20.5 4"/></svg></a>
+    </div>
+    <p class="contacts rv" style="--i:11">Запись на диагностику: <a href="https://t.me/lopatnyuk_psy_bot?start=diag_site">чат-бот @lopatnyuk_psy_bot</a> · <a href="tel:+79636148333">+7 (963) 614-83-33</a></p>
+    <p class="foot rv" style="--i:12">© 2026 Андрей Лопатнюк · Академия Духовной Психологии</p>
+  </div>
+</section>
+
+<!-- ================= ACADEMY (3 tariffs) ================= -->
+<section class="view" data-view="academy">
+  <header class="top"><a class="back" href="#/" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Академия Духовной Психологии</b><span>Курс «Как построить благостные отношения»</span></div></header>
+  <figure class="herop mid" style="height:auto;aspect-ratio:1/.9"><img src="img/hero-academy3.jpg" alt="Академия Духовной Психологии"></figure>
+
+  <a class="promo rv" href="#/diagnostic" style="margin-top:4px">
+    <span class="clock"><svg viewBox="0 0 24 24"><use href="#clk"/></svg></span>
+    <div><b>Как забронировать место по сниженной стоимости?</b><span>Расскажу об этом на бесплатной диагностике — записывайтесь →</span></div>
+  </a>
+
+  <article class="card t rv" style="--i:2">
+    <div class="th">
+      <div><span class="tag">Тариф · Экспресс</span><h3>Лайт</h3><div class="dur">1 месяц</div></div>
+      <div class="prices"><span class="plate new">25 000 ₽</span><span class="plate old">39 000 ₽</span></div>
+    </div>
+    <div class="chips"><span>8 видеоэфиров за месяц</span><span>Привычки и мини-техники</span><span>Чат и база знаний</span></div>
+    <div class="row2"><a class="btn3d dark sm" href="#/tariff-lite">Узнать подробнее</a><a class="btn3d sm" href="#/diagnostic">Записаться</a></div>
+  </article>
+
+  <article class="card t hl rv" style="--i:3">
+    <div class="th">
+      <div><span class="tag">Тариф · Популярный</span><h3>Академический</h3><div class="dur">2,5 месяца наставничества</div></div>
+      <div class="prices"><span class="plate new">49 000 ₽</span><span class="plate old">64 000 ₽</span></div>
+    </div>
+    <div class="chips"><span>18 видеоэфиров, 9 модулей</span><span>10 психологических техник</span><span>Медитации, йога-нидра</span></div>
+    <div class="row2"><a class="btn3d dark sm" href="#/tariff-academic">Узнать подробнее</a><a class="btn3d sm" href="#/diagnostic">Записаться</a></div>
+  </article>
+
+  <article class="card t rv" style="--i:4">
+    <div class="th">
+      <div><span class="tag">Тариф · Максимум</span><h3>Персональный</h3><div class="dur">Всё из Академического +</div></div>
+      <div class="prices"><span class="plate new">79 000 ₽</span><span class="plate old">120 000 ₽</span></div>
+    </div>
+    <div class="chips"><span>Персональный чат с Андреем</span><span>Личная психологическая техника</span><span>2 встречи в Москве</span></div>
+    <div class="row2"><a class="btn3d dark sm" href="#/tariff-personal">Узнать подробнее</a><a class="btn3d sm" href="#/diagnostic">Записаться</a></div>
+  </article>
+</section>
+
+<!-- ================= TARIFF: LITE ================= -->
+<section class="view" data-view="tariff-lite">
+  <header class="top"><a class="back" href="#/academy" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Тариф Лайт</b><span>Академия Духовной Психологии</span></div></header>
+  <figure class="herop mid" style="height:auto;aspect-ratio:1/1"><img src="img/hero-tariff-lite.jpg" alt="Тариф Лайт" style="object-position:50% 0%"></figure>
+  <div class="ph rv"><div class="eyebrow">Экспресс-вариант</div><h2>Личная трансформация за <em>1 месяц</em></h2></div>
+  <article class="card rv" style="--i:1">
+    <div class="prices" style="margin-top:0"><span class="plate new">25 000 ₽</span><span class="plate old">39 000 ₽</span></div>
+    <div class="save24"><svg viewBox="0 0 24 24"><use href="#clk"/></svg><span>Как забронировать место по сниженной стоимости — расскажу на бесплатной диагностике. Записывайтесь</span></div>
+    <div class="sub" style="margin-top:4px">Что входит</div>
+    <ul class="list">
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Всего 8 видеоэфиров с Андреем Лопатнюк за месяц: каждую неделю 1 обучающий и 1 с ответами на вопросы</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Внедряем в вашу жизнь новые благостные привычки</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Заменяем низший вкус на высший</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Мини-техники для усмирения ума, осознанности и пробуждения</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>База авторитетных знаний: книги, лекции, курсы</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Чат и сообщество учеников: общение и проведение техник друг другу</li>
+    </ul>
+    <a class="btn3d" href="#/diagnostic">Записаться через бесплатную диагностику</a>
+  </article>
+</section>
+
+<!-- ================= TARIFF: ACADEMIC ================= -->
+<section class="view" data-view="tariff-academic">
+  <header class="top"><a class="back" href="#/academy" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Тариф Академический</b><span>Академия Духовной Психологии</span></div></header>
+  <figure class="herop mid" style="height:auto;aspect-ratio:1/1"><img src="img/hero-tariff-acad.jpg" alt="Тариф Академический" style="object-position:50% 0%"></figure>
+  <div class="ph rv"><div class="eyebrow">Личное наставничество</div><h2><em>2,5 месяца</em> рядом с наставником</h2></div>
+  <article class="card hl rv" style="--i:1">
+    <div class="prices" style="margin-top:0"><span class="plate new">49 000 ₽</span><span class="plate old">64 000 ₽</span></div>
+    <div class="save24"><svg viewBox="0 0 24 24"><use href="#clk"/></svg><span>Как забронировать место по сниженной стоимости — расскажу на бесплатной диагностике. Записывайтесь</span></div>
+    <div class="sub" style="margin-top:4px">Что входит</div>
+    <ul class="list">
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>2,5 месяца личного наставничества Андрея Лопатнюк</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Всего 18 видеоэфиров: каждую неделю 1 обучающий и 1 с ответами на вопросы. Все эфиры в записи: 9 модулей, в каждом 4–6 уроков</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>10 психологических техник трансформации личности: «Я наблюдатель», «Сверхчеловек», «Освобождение» и другие</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Более 20 новых благостных привычек</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Заменяем низший вкус на высший</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Мини-техники для усмирения ума, осознанности и пробуждения</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>База авторитетных знаний: книги, лекции, курсы</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Медитации, йога-нидра, мантра-медитация</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Совместная духовная практика</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Чат и сообщество учеников: общение и проведение техник друг другу</li>
+    </ul>
+    <a class="btn3d" href="#/diagnostic">Записаться через бесплатную диагностику</a>
+  </article>
+</section>
+
+<!-- ================= TARIFF: PERSONAL ================= -->
+<section class="view" data-view="tariff-personal">
+  <header class="top"><a class="back" href="#/academy" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Тариф Персональный</b><span>Академия Духовной Психологии</span></div></header>
+  <figure class="herop mid" style="height:auto;aspect-ratio:1/1"><img src="img/hero-tariff-pers.jpg" alt="Тариф Персональный" style="object-position:50% 0%"></figure>
+  <div class="ph rv"><div class="eyebrow">Максимум внимания</div><h2>Академия и <em>личная работа</em> с Андреем</h2></div>
+  <article class="card rv" style="--i:1">
+    <div class="prices" style="margin-top:0"><span class="plate new">79 000 ₽</span><span class="plate old">120 000 ₽</span></div>
+    <div class="save24"><svg viewBox="0 0 24 24"><use href="#clk"/></svg><span>Как забронировать место по сниженной стоимости — расскажу на бесплатной диагностике. Записывайтесь</span></div>
+    <div class="sub" style="margin-top:4px">Всё из тарифа «Академический» и дополнительно</div>
+    <ul class="list">
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Отдельный персональный чат участников с Андреем Лопатнюк: он лично отвечает на любые ваши вопросы</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Личное проведение Андреем 1 психологической техники для каждого участника тарифа</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Для жителей Москвы: возможность 2 живых встреч с Андреем</li>
+    </ul>
+    <a class="btn3d dark sm" href="#/tariff-academic" style="margin-bottom:12px">Посмотреть, что входит в «Академический»</a>
+    <a class="btn3d" href="#/diagnostic">Записаться через бесплатную диагностику</a>
+  </article>
+</section>
+
+<!-- ================= PERSONAL ACCOMPANIMENT ================= -->
+<section class="view" data-view="personal">
+  <header class="top"><a class="back" href="#/" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Индивидуальное сопровождение</b><span>Индивидуальная работа</span></div></header>
+  <figure class="herop mid" style="height:auto;aspect-ratio:1/1"><img src="img/hero-support3.jpg" alt="Индивидуальное сопровождение"></figure>
+  <div class="ph rv"><div class="eyebrow">Лично с вами 24/7</div><h2><em>1,5 месяца</em> индивидуальной работы</h2></div>
+  <article class="card hl rv" style="--i:1">
+    <div class="prices" style="margin-top:0"><span class="plate new">108 000 ₽</span><span class="plate old">145 000 ₽</span></div>
+    <div class="save24"><svg viewBox="0 0 24 24"><use href="#clk"/></svg><span>Как забронировать место по сниженной стоимости — расскажу на бесплатной диагностике. Записывайтесь</span></div>
+    <div class="callout"><b>Исходя из вашего запроса и бюджета мы подберём для вас <em>любую длительность и стоимость</em> сопровождения</b></div>
+    <div class="sub">Что входит</div>
+    <ul class="list">
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>1,5 месяца индивидуальной работы с вами 24/7: онлайн-встречи, общение в мессенджерах, видеообучение и созвоны «вопрос-ответ»</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Всего 12 видеоэфиров за 1,5 месяца: каждую неделю 1 обучающий и 1 с ответами на вопросы</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>10 психологических техник трансформации личности: «Я наблюдатель», «Сверхчеловек», «Освобождение» и другие</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Более 20 новых благостных привычек</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Заменяем низший вкус на высший</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Мини-техники для усмирения ума, осознанности и пробуждения</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>База авторитетных знаний: книги, лекции, курсы</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Медитации, йога-нидра, мантра-медитация</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Совместная духовная практика</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Определяем конкретные шаги для улучшения качества вашей жизни</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Возвышаем уровень сознания и укрепляем психологический иммунитет, чтобы не возвращаться в старое негативное состояние</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Сопровождение в чате ещё 2 недели после окончания наставничества</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Для жителей Москвы: возможность 3 живых встреч с Андреем</li>
+    </ul>
+    <div class="gift">
+      <div class="gift-top"><span class="gift-ico">🎁</span><span class="gift-tag">В подарок</span></div>
+      <b>Академия Духовной Психологии, курс «Академический»</b>
+      <div class="gift-price"><span class="plate old">64 000 ₽</span><span class="gift-free">дарим вам</span></div>
+      <p>Открываем вам доступ на 1 год: все 18 видеоэфиров, техники и практики в записи. Проходите в своём темпе.</p>
+    </div>
+    <a class="btn3d" href="#/diagnostic">Записаться через бесплатную диагностику</a>
+  </article>
+</section>
+
+<!-- ================= CONSULT ================= -->
+<section class="view" data-view="consult">
+  <header class="top"><a class="back" href="#/" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Индивидуальная консультация</b><span>Индивидуальная работа</span></div></header>
+  <figure class="herop mid"><img src="img/hero-consult.jpg" alt="Индивидуальная консультация"></figure>
+  <div class="ph rv"><div class="eyebrow">Разовая встреча · 1,5–2 часа</div><h2>Консультация с Андреем <em>Лопатнюк</em></h2></div>
+  <article class="card rv" style="--i:1">
+    <div class="prices" style="margin-top:0"><span class="plate new">12 500 ₽</span><span class="plate old">18 500 ₽</span></div>
+    <div class="save24"><svg viewBox="0 0 24 24"><use href="#clk"/></svg><span>Как забронировать место по сниженной стоимости — расскажу на бесплатной диагностике. Записывайтесь</span></div>
+    <div class="feat">
+      <div><b>Устраняем первичную боль</b><span>Разбираем ситуацию, с которой вы пришли</span></div>
+      <div><b>Находим корень проблемы</b><span>Выявляем причину повторяющихся трудностей</span></div>
+      <div><b>Применяем психологические техники</b><span>Работаем с причиной, а не только с симптомом</span></div>
+      <div><b>Знания для изменений</b><span>Шаги для развития осознанности и улучшения качества жизни во всех сферах</span></div>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn3d" href="#/diagnostic">Записаться через бесплатную диагностику</a>
+  </article>
+</section>
+
+<!-- ================= DIAGNOSTIC ================= -->
+<section class="view" data-view="diagnostic">
+  <header class="top"><a class="back" href="#/" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Бесплатная диагностика</b><span>Первый шаг</span></div></header>
+  <figure class="herop mid"><img src="img/hero-diagnostic.jpg" alt="Бесплатная диагностика"></figure>
+  <div class="ph rv"><div class="eyebrow">Личная встреча · бесплатно</div><h2>Если внутри что-то <em>мешает жить</em></h2><p>Если вы чувствуете, что повторяете не свои сценарии и упёрлись в стену, приходите на личную встречу-диагностику.</p></div>
+  <article class="card hl rv" style="--i:1">
+    <div class="sub" style="margin-top:0">С чем мы работаем</div>
+    <div class="feat">
+      <div><b>Финансовые блоки</b><span>Повторяющиеся кризисы и потери</span></div>
+      <div><b>Отношения</b><span>Страх близости, предательство, разводы</span></div>
+      <div><b>Здоровье</b><span>Психосоматика, хроническая усталость</span></div>
+      <div><b>Повторяющиеся сценарии</b><span>Как выйти из замкнутого круга</span></div>
+    </div>
+    <div class="sub">Что вы получите</div>
+    <ul class="list">
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Распаковку вашей ситуации с применением психологической техники</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Осознание негативных программ и убеждений, которые влияют на вашу жизнь</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Конкретные шаги вашей трансформации</li>
+      <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Возможность записаться на программы по сниженной стоимости</li>
+    </ul>
+    <div class="sub">Как записаться</div>
+    <ol class="steps">
+      <li>Нажмите кнопку ниже — откроется мой Telegram-бот</li>
+      <li>Выберите удобное время: 15 минут по видео в Zoom, бот напомнит за день и за час</li>
+      <li>На встрече разберём вашу ситуацию и определим следующий шаг</li>
+    </ol>
+    <div class="spacer"></div>
+    <a class="btn3d" href="https://t.me/lopatnyuk_psy_bot?start=diag_site"><span>Выбрать время созвона<small>откроется Telegram-бот</small></span></a>
+    <p class="contacts in" style="margin-top:12px">Не пишите в личные сообщения: запись идёт через чат-бот<br><a href="https://t.me/lopatnyuk_psy_bot?start=diag_site">@lopatnyuk_psy_bot</a> · <a href="tel:+79636148333">+7 (963) 614-83-33</a></p>
+  </article>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="view" data-view="about">
+  <header class="top"><a class="back" href="#/" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Обо мне</b><span>Андрей Лопатнюк</span></div></header>
+  <figure class="herop mid"><img src="img/hero-about.jpg" alt="Андрей Лопатнюк"></figure>
+  <div class="ph rv"><div class="eyebrow">Кто я</div><h2>Андрей <em>Лопатнюк</em></h2><ul class="roles">
+      <li>Архитектор отношений</li>
+      <li>Помогаю восстановить старые отношения и выстроить новые</li>
+      <li>Антикризисный семейный психолог</li>
+      <li>Отец четверых детей</li>
+      <li>Основатель Академии Духовной Психологии</li>
+      <li>Психолог духовного и материального роста</li>
+    </ul><p>Помогаю выйти из негативного состояния и построить отношения, в которых спокойно и тепло.</p></div>
+  <article class="card rv" style="--i:1">
+    <div class="sub" style="margin-top:0">Вопросы и ответы</div>
+    <div class="faq">
+      <details><summary>Как записаться?</summary><p>Не пишите мне в личные сообщения, а перейдите в <a href="https://t.me/lopatnyuk_psy_bot?start=diag_site">чат-бот</a>: он сразу даст ссылку на запись на бесплатную диагностику. Выберите удобное время для созвона в Zoom, и на диагностике мы определим ваш следующий шаг.</p></details>
+      <details><summary>Почему у программ две цены?</summary><p>Первая цена — особые условия для тех, кто пришёл на бесплатную диагностику. Вторая — полная стоимость программы.</p></details>
+      <details><summary>Это связано с религией?</summary><p>Нет. «Духовная психология» здесь про работу с психикой, а не про религию или конкретную конфессию. Подходит людям с любыми взглядами.</p></details>
+      <details><summary>Нужна ли подготовка?</summary><p>Нет. Программы построены так, чтобы подойти любому человеку, без знаний психологии или духовных практик.</p></details>
+    </div>
+    <div class="spacer"></div>
+    <p class="tgnote">В моём Telegram-канале пишу об отношениях и о том, как пережить измену и восстановить доверие: разборы, практики, ответы на вопросы.</p>
+    <a class="btn3d dark sm" href="https://t.me/psychology_schastya">Перейти в Telegram-канал</a>
+  </article>
+</section>
+
+</div>
+
+<button hidden class="plateSw" id="plateSw" type="button" aria-label="Переключить подложку"><i></i><span id="plateLbl">Подложка: светлая</span></button>
+<div class="dock" id="dock"><a class="btn3d" href="#/diagnostic">Записаться на бесплатную диагностику →</a></div>
+
+<script>
+(function(){
+  // ---- medallions ----
+  var petalSvg='<svg class="petals" viewBox="0 0 100 100" aria-hidden="true"><g>'+
+    [0,45,90,135,180,225,270,315].map(function(a){return '<ellipse cx="50" cy="27" rx="7.5" ry="17" transform="rotate('+a+' 50 50)"/>';}).join('')+
+    '<circle cx="50" cy="50" r="38"/></g></svg>';
+  var medals=[].slice.call(document.querySelectorAll('.coin3d'));
+  medals.forEach(function(host){
+    var svg=host.querySelector('svg'); if(!svg) return;
+    var m=document.createElement('div'); m.className='m';
+    var ring=document.createElement('div'); ring.className='ring';
+    var disc=document.createElement('div'); disc.className='disc'; disc.innerHTML='<div class="sheen"></div>';
+    var petals=document.createElement('div'); petals.innerHTML=petalSvg;
+    var glyph=document.createElement('div'); glyph.className='glyph';
+    var gs=svg.cloneNode(true);
+    [].slice.call(gs.querySelectorAll('path,circle,rect,ellipse,line')).forEach(function(el){ el.setAttribute('pathLength','1'); });
+    glyph.appendChild(gs);
+    var glare=document.createElement('div'); glare.className='glare';
+    m.appendChild(ring); m.appendChild(disc); m.appendChild(petals.firstChild); m.appendChild(glyph); m.appendChild(glare);
+    host.removeChild(svg); host.insertBefore(m,host.firstChild);
+  });
+  function track(area,host){
+    function move(e){
+      var r=host.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+      var dx=Math.max(-1,Math.min(1,(e.clientX-cx)/(r.width*1.8))), dy=Math.max(-1,Math.min(1,(e.clientY-cy)/(r.height*1.8)));
+      host.style.setProperty('--ry',(dx*20)+'deg'); host.style.setProperty('--rx',(-dy*20)+'deg');
+      host.style.setProperty('--tx',dx*4); host.style.setProperty('--ty',dy*4);
+      host.style.setProperty('--gx',(50+dx*40)+'%'); host.style.setProperty('--gy',(50+dy*40)+'%');
+      host.classList.add('hot');
+    }
+    function leave(){ ['--rx','--ry','--tx','--ty'].forEach(function(k){host.style.removeProperty(k);}); host.classList.remove('hot'); }
+    area.addEventListener('pointermove',move); area.addEventListener('pointerleave',leave); area.addEventListener('pointercancel',leave);
+    area.addEventListener('pointerup',function(e){ if(e.pointerType!=='mouse') setTimeout(leave,350); });
+  }
+  medals.forEach(function(host){ var area=host.closest('.entry')||host; track(area,host); });
+
+  // ---- plate comparison (?plate=light | ?plate=dark) ----
+  var sw=document.getElementById('plateSw'), lbl=document.getElementById('plateLbl');
+  function setPlate(p){
+    document.body.setAttribute('data-plate',p);
+    lbl.textContent='Подложка: '+(p==='dark'?'тёмная':'светлая');
+    try{ var u=new URL(location.href); u.searchParams.set('plate',p); history.replaceState(null,'',u.toString()); }catch(e){}
+  }
+  var qp=(location.search.match(/plate=(light|dark)/)||[])[1];
+  setPlate(qp||'dark');
+  sw.addEventListener('click',function(){ setPlate(document.body.getAttribute('data-plate')==='dark'?'light':'dark'); });
+
+  // ---- backdrop per page ----
+  var BG={home:'sky',academy:'geo','tariff-lite':'geo','tariff-academic':'geo','tariff-personal':'storm',personal:'storm',consult:'lake',diagnostic:'dawn',game:'sky',about:'mist'};
+  var layers=[].slice.call(document.querySelectorAll('.bgl'));
+  function setBg(name){
+    var b=BG[name]||'sky'; document.body.setAttribute('data-bg',b);
+    layers.forEach(function(l){ l.classList.toggle('on',l.getAttribute('data-b')===b); });
+  }
+
+  // ---- router (hash views) ----
+  var views=[].slice.call(document.querySelectorAll('.view')), dock=document.getElementById('dock');
+  function show(name){
+    var found=false;
+    views.forEach(function(v){ var on=v.getAttribute('data-view')===name; if(on) found=true; v.classList.toggle('active',on); });
+    if(!found){ name='home'; views[0].classList.add('active'); }
+    setBg(name);
+    dock.classList.toggle('show', name!=='home' && name!=='diagnostic');
+    window.scrollTo(0,0);
+  }
+  function route(){ var h=location.hash.replace(/^#\/?/,''); show(h||'home'); }
+  window.addEventListener('hashchange',route); route();
+
+  window.addEventListener('scroll',function(){
+    var h=location.hash.replace(/^#\/?/,'')||'home';
+    if(h==='home') dock.classList.toggle('show',(window.scrollY||0)>window.innerHeight*0.6);
+  },{passive:true});
+})();
+</script>
+</body></html>
