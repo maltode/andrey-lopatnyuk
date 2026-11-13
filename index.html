@@ -242,6 +242,29 @@ body[data-plate="dark"] .plateSw i{transform:rotate(180deg)}
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{animation:none!important;transition-duration:.01s!important}
 }
+
+/* ===== видео об Академии (12.11): заставка с кнопкой, ролик грузится только по нажатию ===== */
+.vid{margin:14px 0 4px}
+.vid-cap{margin:0 4px 8px}
+.vid-cap .eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--goldlight)}
+.vid-cap b{display:block;margin-top:3px;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:19px;line-height:1.2;color:var(--text)}
+.vid-box{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;cursor:pointer;border:1px solid var(--line);
+  box-shadow:0 14px 30px rgba(8,22,60,.45),0 0 0 4px rgba(236,224,186,.08)}
+.vid-box img,.vid-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#0b1b3a}
+.vid-box:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(60% 60% at 50% 50%,rgba(8,20,48,.0),rgba(8,20,48,.35))}
+.vid-play{position:absolute;z-index:2;left:50%;top:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;border:2px solid var(--goldlight);
+  background:radial-gradient(circle at 50% 35%,rgba(242,232,203,.95),rgba(194,164,100,.95));box-shadow:0 0 0 8px rgba(242,232,203,.18),0 10px 24px rgba(0,0,0,.45);
+  display:grid;place-items:center;animation:vpulse 2.4s ease-in-out infinite}
+.vid-play svg{width:26px;height:26px;margin-left:4px;fill:#14295a}
+@keyframes vpulse{0%,100%{box-shadow:0 0 0 6px rgba(242,232,203,.16),0 10px 24px rgba(0,0,0,.45)}50%{box-shadow:0 0 0 14px rgba(242,232,203,.05),0 10px 24px rgba(0,0,0,.45)}}
+.vid-dur{position:absolute;z-index:2;right:10px;bottom:10px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:800;color:var(--text);background:rgba(8,20,48,.72);border:1px solid var(--line2)}
+.vid-note{margin:8px 4px 0;font-size:12.5px;color:var(--muted)}
+.vid-note a{color:var(--goldlight);font-weight:700;text-decoration:none}
+.entry .vtag{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em;color:#14295a;background:linear-gradient(180deg,#F2E8CB,#D9BF85)}
+.entry .vtag svg{width:9px;height:9px;fill:#14295a}
+.entry .vtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.entry .vtags .vtag{margin-top:0}
+.vid + .vid{margin-top:22px}
 </style></head><body data-bg="sky">
 <div class="bgl on" data-b="sky" style="background-image:url('img/bg-sky.jpg')"></div>
 <div class="bgl" data-b="geo" style="background-image:url('img/bg-geo.jpg')"></div>
@@ -273,7 +296,7 @@ body[data-plate="dark"] .plateSw i{transform:rotate(180deg)}
     <div class="glabel rv" style="--i:1">Групповое образование</div>
     <a class="entry rv" style="--i:2" href="#/academy">
       <span class="coin3d"><svg viewBox="0 0 24 24"><path d="M2.5 9.5L12 5l9.5 4.5L12 14 2.5 9.5z"/><path d="M6.5 11.5v4.2c0 1.2 2.5 2.8 5.5 2.8s5.5-1.6 5.5-2.8v-4.2"/><path d="M21.5 9.5v5"/></svg></span>
-      <span><h3>Академия Духовной Психологии</h3><p>Курс «Как построить благостные отношения» · 3 тарифа</p></span>
+      <span><h3>Академия Духовной Психологии</h3><p>Курс «Как построить благостные отношения» · 3 тарифа</p><span class="vtags"><span class="vtag"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg>Видео 3 мин</span><span class="vtag"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg>Видео 2 мин</span></span></span>
       <svg class="go" viewBox="0 0 24 24"><use href="#go"/></svg>
     </a>
 
@@ -322,6 +345,25 @@ body[data-plate="dark"] .plateSw i{transform:rotate(180deg)}
 <section class="view" data-view="academy">
   <header class="top"><a class="back" href="#/" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></a><div><b>Академия Духовной Психологии</b><span>Курс «Как построить благостные отношения»</span></div></header>
   <figure class="herop mid" style="height:auto;aspect-ratio:1/.9"><img src="img/hero-academy3.jpg" alt="Академия Духовной Психологии"></figure>
+
+
+  <figure class="vid rv" id="video-academy" style="--i:1">
+    <div class="vid-cap"><span class="eyebrow">Видео · 3 минуты</span><b>Что даёт Академия за 3 месяца</b></div>
+    <div class="vid-box" data-src="video/akademiya.mp4" role="button" aria-label="Смотреть видео «Что даёт Академия»">
+      <img src="img/video-akademiya.jpg" alt="Андрей Лопатнюк об Академии Духовной Психологии" loading="lazy">
+      <span class="vid-play"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="vid-dur">3:06</span>
+    </div>
+  </figure>
+
+  <!-- второе видео — под первым (просьба папы 13.11: «один под другим») -->
+  <figure class="vid rv" id="video-academy-2" style="--i:2">
+    <div class="vid-cap"><span class="eyebrow">Видео · 2 минуты</span><b>Уже ходили к психологам, а результата нет?</b></div>
+    <div class="vid-box" data-src="video/psihologi.mp4" role="button" aria-label="Смотреть видео «Почему психологи не помогают»">
+      <img src="img/video-psihologi.jpg" alt="Андрей Лопатнюк: почему психологи годами не помогают" loading="lazy">
+      <span class="vid-play"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="vid-dur">1:42</span>
+    </div>
+    <p class="vid-note">Посмотрели и откликается? <a href="#/diagnostic">Подберём тариф на бесплатной диагностике →</a></p>
+  </figure>
 
   <a class="promo rv" href="#/diagnostic" style="margin-top:4px">
     <span class="clock"><svg viewBox="0 0 24 24"><use href="#clk"/></svg></span>
@@ -488,6 +530,13 @@ body[data-plate="dark"] .plateSw i{transform:rotate(180deg)}
       <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Конкретные шаги вашей трансформации</li>
       <li><svg viewBox="0 0 24 24"><use href="#chk"/></svg>Подбор программы и особых условий именно для вас</li>
     </ul>
+    <figure class="vid" id="video-psihologi">
+      <div class="vid-cap"><span class="eyebrow">Видео · 2 минуты</span><b>Уже ходили к психологам, а результата нет?</b></div>
+      <div class="vid-box" data-src="video/psihologi.mp4" role="button" aria-label="Смотреть видео «Почему психологи не помогают»">
+        <img src="img/video-psihologi.jpg" alt="Андрей Лопатнюк: почему психологи годами не помогают" loading="lazy">
+        <span class="vid-play"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="vid-dur">1:42</span>
+      </div>
+    </figure>
     <div class="sub">Как записаться</div>
     <ol class="steps">
       <li>Нажмите кнопку ниже — откроется мой Telegram-бот</li>
@@ -604,5 +653,20 @@ body[data-plate="dark"] .plateSw i{transform:rotate(180deg)}
     if(h==='home') dock.classList.toggle('show',(window.scrollY||0)>window.innerHeight*0.6);
   },{passive:true});
 })();
+</script>
+
+<script>
+// видео: по нажатию на заставку подменяем её роликом (до нажатия ничего не грузится)
+document.addEventListener('click', function (e) {
+  var box = e.target.closest && e.target.closest('.vid-box');
+  if (!box || box.querySelector('video')) return;
+  var v = document.createElement('video');
+  v.src = box.dataset.src; v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'auto';
+  v.poster = box.querySelector('img').src;
+  box.querySelectorAll('.vid-play,.vid-dur').forEach(function (x) { x.remove(); });
+  box.appendChild(v); v.play && v.play().catch(function () {});
+});
+// при уходе со страницы раздела ролик останавливается
+window.addEventListener('hashchange', function () { document.querySelectorAll('.vid-box video').forEach(function (v) { v.pause(); }); });
 </script>
 </body></html>
